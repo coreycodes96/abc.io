@@ -1,0 +1,23 @@
+{
+  "name": "abc.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "devStart1": "nodemon index.js --port 5000",
+    "devStart2": "nodemon index.js --port 5001"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@socket.io/redis-adapter": "^7.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16",
+    "redis": "^4.1.0",
+    "socket.io": "^4.5.1"
+  }
+}
