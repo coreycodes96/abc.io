@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "devStart1": "nodemon index.js --port 5000",
-    "devStart2": "nodemon index.js --port 5001"
+    "devStart1": "nodemon index.js --port 5000 --socketHost 8003",
+    "devStart2": "nodemon index.js --port 5001 --socketHost 8004"
   },
   "keywords": [],
   "author": "",
