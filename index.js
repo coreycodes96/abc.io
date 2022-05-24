@@ -22,12 +22,17 @@ if (cluster.isPrimary) {
     });
 } else {
     const app = express();
+    app.use(express.urlencoded({ extended: true }));
+    app.use(express.json());
+    app.use(cors({
+        origin: '*',
+    }));
 
     //Socket IO
     const httpServer = createServer();
     const io = new Server(httpServer, {
         cors: {
-            origin: 'http://192.168.1.113/',
+            origin: 'http://192.168.1.113',
             credentials: true,
         }
     });
@@ -47,6 +52,15 @@ if (cluster.isPrimary) {
     io.on("connection", socket => {
         console.log(`Connection: ${socket.id}`);
 
+        socket.on("heartbeat", () => {
+            const data = {
+                port: port,
+                socketId: socket.id
+            }
+
+            socket.emit("heartbeat_res", data);
+        })
+
         socket.on('disconnect', function () {
             console.log("disconnect: ", socket.id);
         });
@@ -55,11 +69,8 @@ if (cluster.isPrimary) {
     const port = process.argv[3];
 
     app.get('/', async (req, res) => {
-        const value = await pubClient.get('key');
-
-        const data = JSON.stringify(value);
-        //return res.send(data);
-        return res.send(`hi from port ${port}`);
+        console.log(req.get('host'));
+        return res.status(200).json(port);
     })
 
     app.listen(port, () => {
